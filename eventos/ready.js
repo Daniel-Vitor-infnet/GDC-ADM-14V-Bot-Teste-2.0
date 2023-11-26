@@ -1,14 +1,14 @@
+const { Discord, sqlite3, Cor, Bot, Gif, GDC } = require("../estruturas/modulos.js");
+const functions = require("../estruturas/functions_import.js");
 const { ActivityType } = require('discord.js');
-var moment = require('moment-timezone');
-moment.locale('pt-BR');
-let data = moment().tz("America/Sao_Paulo").format('dddd 𝙳𝚒𝚊: LL 𝙰̀𝚜: LTS');
+
 
 module.exports = {
   name: "ready",
   once: true, // Certifique-se de que este evento seja executado apenas uma vez quando o bot iniciar
   execute(client) {
-    console.log(`🔥 Estou online! ${data}`);
-    
+    console.log(`🔥 Estou online! || ${functions.dataDefault()}`);
+
     // Defina o status do bot
     client.user.setPresence({
       activities: [{ name: `/ajuda para dúvidas`, type: ActivityType.Custom }], // Você pode usar PLAYING, WATCHING, LISTENING, STREAMING, COMPETING. CUSTOM 

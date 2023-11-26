@@ -1,4 +1,5 @@
-const Discord = require("discord.js")
+const { Discord, sqlite3, Cor, Bot, Gif, GDC } = require("./estruturas/modulos.js");
+const functions = require("./estruturas/functions_import.js");
 const config = require("./config.json")
 const { Client, Collection, GatewayIntentBits, Partials } = require("discord.js");
 const client = new Client({
@@ -33,33 +34,19 @@ const client = new Client({
 
 const path = require('node:path');
 const fs = require("fs")
-const Cor = require("./estruturas/cores.js");
-const Bot = require("./estruturas/botinfo.js");
-const Gif = require("./estruturas/gifs.js");
-const akinator = require("discord.js-akinator");
+
+module.exports = client;
 const eventFiles = [
   "ready",
   "interactionCreate",
   "messageCreate",
+  "manage_database",
+  "guildMemberAdd",
+  "guildMemberRemove",
 ];
-const sqlite3 = require("sqlite3").verbose();
-const db = new sqlite3.Database("comandos_bloqueados.db");
-
-// Cria a tabela de bloqueio de comandos se ela não existir
-db.serialize(() => {
-  db.run("CREATE TABLE IF NOT EXISTS StatusCommands (ServidorNome TEXT, ServidorID TEXT, Comandos TEXT, Status TEXT, PRIMARY KEY (ServidorID, Comandos))");
-});
-
-db.close();
-
-
-
-
-module.exports = client;
-
 // Registre os Eventos
 for (const eventFile of eventFiles) {
-  const event = require(`./Eventos/${eventFile}`);
+  const event = require(`./eventos/${eventFile}`);
   const eventName = eventFile.replace(/\.(js|ts)$/, ""); // Remove a extensão do arquivo
 
   if (eventName === "interactionCreate") {
@@ -69,6 +56,14 @@ for (const eventFile of eventFiles) {
   }
 }
 
+// Função assíncrona para chamar Post Do Reddit
+
+const { postNewMemes, intervalMemes } = require('./eventos/reddit/post_meme.js');
+const { postNewPutaria, intervalPutaria } = require('./eventos/reddit/post_putaria.js');
+
+// Configure o setInterval para ambos os módulos
+setInterval(() => postNewMemes(client), intervalMemes);
+setInterval(() => postNewPutaria(client), intervalPutaria);
 
 
 
@@ -76,7 +71,7 @@ client.slashCommands = new Discord.Collection()
 client.categories = fs.readdirSync("./comandos/");
 
 ["comandos"].forEach(handler => {
-  require(`./Eventos/reloadercommand`)(client);
+  require(`./eventos/reloadercommand`)(client);
 });
 
 
