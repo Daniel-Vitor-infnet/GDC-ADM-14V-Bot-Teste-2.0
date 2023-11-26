@@ -1,0 +1,14 @@
+#Ignora apenas arquivos/pasta que não foram enviadas ainda para o git
+# git update-index --assume-unchanged arquivo-a-ser-ignorado  
+# git update-index --no-assume-unchanged arquivo-a-ser-revertido
+# git rm --cached -r suporte  (remove do git)
+
+Extras
+node_modules
+suporte
+comando-para-alterar.js
+comando-para-alterar2.js
+comandos_bloqueados.db
+
+
+

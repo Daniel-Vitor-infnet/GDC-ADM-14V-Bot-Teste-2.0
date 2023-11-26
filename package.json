@@ -1,0 +1,21 @@
+{
+  "name": "gdc-adm-14v-bot-teste",
+  "version": "20.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cpu-stat": "^2.0.1",
+    "discord.js": "^14.13.0",
+    "discord.js-akinator": "^4.1.2",
+    "fs": "^0.0.1-security",
+    "moment-duration-format": "^2.3.2",
+    "moment-timezone": "^0.5.43",
+    "path": "^0.12.7",
+    "sqlite3": "^5.1.6"
+  }
+}
